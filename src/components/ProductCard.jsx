@@ -1,5 +1,7 @@
 import React from "react";
 import Button from "./Button";
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const ProductCard = (props) => {
   const imageName = `${props.productId}.png`;
@@ -8,7 +10,9 @@ const ProductCard = (props) => {
   return (
     <div className="col mb-5">
       <div className="card h-100">
-        <img className="card-img-top" src={imagePath} alt={props.productId} />
+        <a href={`/${props.productId}`}>
+          <img className="card-img-top" src={imagePath} alt={props.productId} />
+        </a>
         <div className="card-body p-4">
           <div className="text-center">
             <h5
