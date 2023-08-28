@@ -5,11 +5,9 @@ import Home from "./containers/Home";
 import Details from "./containers/Details";
 import PurchaseSuccess from "./containers/PurchaseSuccess";
 
-import "./App.css";
-
 function App() {
   return (
-    <div className="App">
+    <div className="App d-flex flex-column min-vh-100">
       <BrowserRouter>
         <Navbar />
         <Routes>

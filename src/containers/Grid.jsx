@@ -4,7 +4,7 @@ import Header from "../components/Header";
 
 const Grid = (props) => {
   return (
-    <section className="py-5">
+    <section className="py-5 flex-grow-1">
       <Header />
       <div className="container px-4 px-lg-5 mt-5">
         <div

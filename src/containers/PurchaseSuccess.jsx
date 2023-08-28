@@ -8,7 +8,7 @@ const PurchaseSuccess = () => {
     backgroundPosition: "center",
   };
   return (
-    <section className="py-5">
+    <section className="py-5 flex-grow-1">
       <header className="bg-dark py-5" style={heroStyle}>
         <div className="container px-4 px-lg-5 my-5">
           <div className="text-center text-white">

@@ -7,7 +7,7 @@ const Details = (props) => {
   const imageName = `${productId}.jpg`;
   const imagePath = require(`../assets/${imageName}`);
   return (
-    <section className="py-5">
+    <section className="py-5 flex-grow-1">
       <div className="container px-4 px-lg-5 mt-5">
         <div className="d-flex flex-wrap">
           <div className="card m-auto mt-sm-3" style={{ border: "none" }}>
@@ -15,7 +15,7 @@ const Details = (props) => {
               <div className="col-md-4">
                 <img src={imagePath} className="card-img-top" alt={imagePath} />
               </div>
-              <div className="col-md-8">
+              <div className="col-md-8 text-center">
                 <div className="card-body">
                   <h2
                     className="card-title text-uppercase"
@@ -23,7 +23,7 @@ const Details = (props) => {
                     data-fsc-item-display
                   ></h2>
                   <p
-                    className="card-text col-4 m-auto mb-3"
+                    className="card-text col-5 m-auto mb-3"
                     data-fsc-item-path={productId}
                     data-fsc-item-description-summary
                   ></p>
