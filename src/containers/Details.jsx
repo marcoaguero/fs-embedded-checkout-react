@@ -1,9 +1,10 @@
 import React from "react";
 import { useParams } from "react-router";
+import Button from "../components/Button";
 
 const Details = (props) => {
   const { productId } = useParams();
-  const imageName = `${productId}.png`;
+  const imageName = `${productId}.jpg`;
   const imagePath = require(`../assets/${imageName}`);
   return (
     <section className="py-5">
@@ -22,10 +23,15 @@ const Details = (props) => {
                     data-fsc-item-display
                   ></h2>
                   <p
-                    className="card-text"
+                    className="card-text col-4 m-auto mb-3"
                     data-fsc-item-path={productId}
                     data-fsc-item-description-summary
                   ></p>
+                  <Button
+                    actions="Add,Checkout"
+                    title="Buy now"
+                    productId={productId}
+                  />
                 </div>
               </div>
             </div>

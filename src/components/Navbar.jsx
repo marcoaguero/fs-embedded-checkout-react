@@ -35,41 +35,9 @@ const Navbar = (props) => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#!">
-                About
+              <a className="nav-link" href="/the-all-in-one-pack">
+                The all-in-one pack
               </a>
-            </li>
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                id="navbarDropdown"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Shop
-              </a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                  <a className="dropdown-item" href="#!">
-                    All Products
-                  </a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#!">
-                    Popular Items
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#!">
-                    New Arrivals
-                  </a>
-                </li>
-              </ul>
             </li>
           </ul>
           <form className="d-flex">

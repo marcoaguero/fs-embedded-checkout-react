@@ -9,14 +9,14 @@ const Grid = (props) => {
           className="
             row
             gx-4 gx-lg-5
-            row-cols-2 row-cols-md-3 row-cols-xl-4
+            row-cols-2 row-cols-md-4 row-cols-xl-4
             justify-content-center
           "
         >
           <ProductCard
             productId="fxlab-subscription"
             actions="Add"
-            buttonTitle="Subscribe monthly"
+            buttonTitle="Subscribe"
           />
           <ProductCard
             productId="distorsion-60s"
@@ -30,11 +30,6 @@ const Grid = (props) => {
           />
           <ProductCard
             productId="reverb-70s"
-            actions="Add"
-            buttonTitle="Add to cart"
-          />
-          <ProductCard
-            productId="the-all-in-one-pack"
             actions="Add"
             buttonTitle="Add to cart"
           />
