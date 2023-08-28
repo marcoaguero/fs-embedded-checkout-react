@@ -1,13 +1,13 @@
-import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./containers/Home";
 import Details from "./containers/Details";
+import PurchaseSuccess from "./containers/PurchaseSuccess";
 
 import "./App.css";
 
 function App() {
-  const { productId } = useParams();
   return (
     <div className="App">
       <BrowserRouter>
@@ -15,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/:productId" element={<Details />} />
+          <Route path="/purchase_success" element={<PurchaseSuccess />} />
         </Routes>
         <Footer />
       </BrowserRouter>

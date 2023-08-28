@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import iconImage from "../assets/logo.png"; // Import the icon image
 
 const Navbar = (props) => {
   return (
@@ -13,7 +13,12 @@ const Navbar = (props) => {
     >
       <div className="container px-4 px-lg-5">
         <a href="/" className="navbar-brand">
-          FXLab
+          <img
+            src={iconImage} // Use the imported icon image as the source
+            alt="FXLab"
+            width="50" // Adjust the width to your desired size
+            className="d-inline-block align-top"
+          />
         </a>
 
         <button

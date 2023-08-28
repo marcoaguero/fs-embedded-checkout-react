@@ -1,9 +1,11 @@
 import React from "react";
 import ProductCard from "../components/ProductCard";
+import Header from "../components/Header";
 
 const Grid = (props) => {
   return (
     <section className="py-5">
+      <Header />
       <div className="container px-4 px-lg-5 mt-5">
         <div
           className="

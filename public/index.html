@@ -10,25 +10,33 @@
     <meta name="author" content="" />
     <title>Effects Lab</title>
     <!-- Favicon-->
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="https://fastspring.com/wp-content/themes/fastspring-bamboo/images/favicons/favicon-32x32.png?v=ng9wKyB4nn"
-    />
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/icon.png" />
     <!-- Bootstrap icons-->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
       rel="stylesheet"
     />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
     <script
       id="fsc-api"
       src="https://sbl.onfastspring.com/sbl/0.9.5/fastspring-builder.min.js"
       type="text/javascript"
+      data-popup-closed="onFSPopupClosed"
       data-storefront="assignmentse.test.onfastspring.com/popup-assignmentse"
       data-continuous="true"
     ></script>
+    <script>
+      function onFSPopupClosed(orderReference) {
+        // Redirect to the "thank you" page
+        if (orderReference) {
+          console.log(orderReference.id);
+          fastspring.builder.reset();
+          window.location.href =
+            "/purchase_success?orderId=" + orderReference.id;
+        } else {
+          console.log("no order ID");
+        }
+      }
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
