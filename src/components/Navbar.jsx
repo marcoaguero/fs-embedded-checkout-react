@@ -39,11 +39,11 @@ const Navbar = (props) => {
                 Home
               </a>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/the-all-in-one-pack">
-                The all-in-one pack
+            {/* <li className="nav-item">
+              <a className="nav-link" href="/one_click_test">
+                One Click Demo
               </a>
-            </li>
+            </li> */}
           </ul>
           <form className="d-flex">
             <a

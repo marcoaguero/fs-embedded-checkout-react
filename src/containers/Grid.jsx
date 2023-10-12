@@ -16,22 +16,12 @@ const Grid = (props) => {
           "
         >
           <ProductCard
-            productId="fxlab-subscription"
-            actions="Add"
-            buttonTitle="Subscribe"
-          />
-          <ProductCard
-            productId="distorsion-60s"
+            productId="demo-product-1"
             actions="Add"
             buttonTitle="Add to cart"
           />
           <ProductCard
-            productId="echo-80s"
-            actions="Add"
-            buttonTitle="Add to cart"
-          />
-          <ProductCard
-            productId="reverb-70s"
+            productId="demo-product-2"
             actions="Add"
             buttonTitle="Add to cart"
           />

@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Home from "./containers/Home";
 import Details from "./containers/Details";
 import PurchaseSuccess from "./containers/PurchaseSuccess";
+import OneClickTest from "./containers/OneClickTest";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/:productId" element={<Details />} />
           <Route path="/purchase_success" element={<PurchaseSuccess />} />
+          <Route path="/one_click_test" element={<OneClickTest />} />
         </Routes>
         <Footer />
       </BrowserRouter>

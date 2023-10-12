@@ -9,6 +9,7 @@ const Button = (props) => {
           href="#"
           data-fsc-item-path-value={props.productId}
           data-fsc-action={props.actions}
+          onClick={props.clickEvent}
         >
           {props.title}
         </a>
