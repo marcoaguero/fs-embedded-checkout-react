@@ -1,7 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
 import iconImage from "../assets/logo.png"; // Import the icon image
+import { AuthContext } from "../store/AuthContext";
 
 const Navbar = (props) => {
+  const { state, dispatch } = useContext(AuthContext);
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT" });
+  };
+  let loggingButton;
+  if (!state.isLogged) {
+    loggingButton = (
+      <a className="nav-link active" aria-current="page" href="/login">
+        Log in
+      </a>
+    );
+  }
+  if (state.isLogged) {
+    loggingButton = (
+      <a
+        className="nav-link active"
+        aria-current="page"
+        href="#"
+        onClick={handleLogout}
+      >
+        Log out
+      </a>
+    );
+  }
+
   return (
     <nav
       className="
@@ -33,17 +59,13 @@ const Navbar = (props) => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 d-flex">
             <li className="nav-item">
               <a className="nav-link active" aria-current="page" href="/">
                 Home
               </a>
             </li>
-            {/* <li className="nav-item">
-              <a className="nav-link" href="/one_click_test">
-                One Click Demo
-              </a>
-            </li> */}
+            <li className="ms-auto">{loggingButton}</li>
           </ul>
           <form className="d-flex">
             <a
