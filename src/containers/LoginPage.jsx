@@ -1,4 +1,3 @@
-import hero from "../assets/thank-you.jpg";
 import React, { useContext } from "react";
 import { AuthContext } from "../store/AuthContext";
 
