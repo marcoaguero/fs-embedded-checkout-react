@@ -11,7 +11,7 @@ const Navbar = (props) => {
   if (!state.isLogged) {
     loggingButton = (
       <a className="nav-link active" aria-current="page" href="/login">
-        Log in
+        <b>Log in</b>
       </a>
     );
   }
@@ -23,7 +23,7 @@ const Navbar = (props) => {
         href="#"
         onClick={handleLogout}
       >
-        Log out
+        <b>Log out</b>
       </a>
     );
   }
