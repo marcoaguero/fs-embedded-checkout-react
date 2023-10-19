@@ -75,7 +75,7 @@ const Grid = (props) => {
                     className="btn btn-outline-dark mt-auto"
                     onClick={handleRepeatPurchase}
                   >
-                    Buy now
+                    Add to cart
                   </a>
                 </div>
               </div>
