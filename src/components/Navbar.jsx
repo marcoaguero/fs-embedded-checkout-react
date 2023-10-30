@@ -1,30 +1,28 @@
 import React, { useContext } from "react";
 import iconImage from "../assets/logo.png"; // Import the icon image
 import { AuthContext } from "../store/AuthContext";
+import { Link } from "react-router-dom";
+import { useFastSpring } from "../store/FastSpringContext";
 
 const Navbar = (props) => {
   const { state, dispatch } = useContext(AuthContext);
+  const { data } = useFastSpring();
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
   };
   let loggingButton;
   if (!state.isLogged) {
     loggingButton = (
-      <a className="nav-link active" aria-current="page" href="/login">
+      <Link to="/login" className="nav-link active" aria-current="page">
         <b>Log in</b>
-      </a>
+      </Link>
     );
   }
   if (state.isLogged) {
     loggingButton = (
-      <a
-        className="nav-link active"
-        aria-current="page"
-        href="#"
-        onClick={handleLogout}
-      >
+      <Link to="#" className="nav-link active" onClick={handleLogout}>
         <b>Log out</b>
-      </a>
+      </Link>
     );
   }
 
@@ -38,14 +36,14 @@ const Navbar = (props) => {
       "
     >
       <div className="container px-4 px-lg-5">
-        <a href="/" className="navbar-brand">
+        <Link to="/" className="navbar-brand">
           <img
             src={iconImage} // Use the imported icon image as the source
             alt="FXLab"
             width="50" // Adjust the width to your desired size
             className="d-inline-block align-top"
           />
-        </a>
+        </Link>
 
         <button
           className="navbar-toggler"
@@ -61,26 +59,24 @@ const Navbar = (props) => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 d-flex">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="/">
+              <Link to="/" className="nav-link active" aria-current="page">
                 Home
-              </a>
+              </Link>
             </li>
             <li className="ms-auto">{loggingButton}</li>
           </ul>
           <form className="d-flex">
-            <a
+            <Link
+              to="/checkout"
               className="btn btn-outline-dark"
-              href="#"
-              data-fsc-action="ViewCart"
+              aria-current="page"
             >
               <i className="bi-cart-fill me-1"></i>
               Cart
-              <span
-                className="ms-1"
-                id="order-total"
-                data-fsc-order-total
-              ></span>
-            </a>
+              <span className="ms-1" id="order-total">
+                {data.originalTotal}
+              </span>
+            </Link>
           </form>
         </div>
       </div>
