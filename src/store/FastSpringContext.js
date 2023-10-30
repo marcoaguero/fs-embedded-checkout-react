@@ -76,9 +76,7 @@ export const FastSpringProvider = ({ children }) => {
       // Remove EmbeddedSBL on pages other than checkout
       const scriptToRemove = document.getElementById("fsc-api-second");
       if (scriptToRemove) {
-        setTimeout(() => {
-          scriptToRemove.remove();
-        }, 1000); // Remove after 1 second
+        scriptToRemove.remove();
       }
     }
   }, [location]);

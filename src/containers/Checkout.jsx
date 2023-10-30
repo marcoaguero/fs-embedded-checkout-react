@@ -7,7 +7,7 @@ const Checkout = () => {
         <div
           id="fsc-embedded-checkout-container"
           style={{
-            maxHeight: "660px", // Adjust the maximum height as needed
+            maxHeight: "500px", // Adjust the maximum height as needed
             position: "relative", // Center the checkout container horizontally
           }}
         ></div>
