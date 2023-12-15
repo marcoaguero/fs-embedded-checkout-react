@@ -12,6 +12,20 @@ export const FastSpringProvider = ({ children }) => {
   const [data, setData] = useState({});
   const location = useLocation();
 
+  // Function to set opacity to 0 for elements with the same ID
+  const setOpacityToZero = () => {
+    const elements = document.querySelectorAll(
+      "#fsc-embedded-checkout-skeleton"
+    );
+
+    elements.forEach((element) => {
+      if (element.style.opacity !== "0") {
+        element.style.opacity = "0";
+        element.style.transition = "opacity 0.1s";
+      }
+    });
+  };
+
   // Fills up products array when SBL loads
   useEffect(() => {
     const fastSpringCallBack = (data) => {
@@ -72,6 +86,10 @@ export const FastSpringProvider = ({ children }) => {
     if (location.pathname === "/checkout") {
       // Load EmbeddedSBL only on the checkout page
       addEmbeddedSBL();
+      // Set opacity to 0 for elements with the same ID after a 3-second delay
+      setTimeout(() => {
+        setOpacityToZero();
+      }, 1500);
     } else {
       // Remove EmbeddedSBL on pages other than checkout
       const scriptToRemove = document.getElementById("fsc-api-second");
