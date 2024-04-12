@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useFastSpring } from "../store/FastSpringContext";
-import Button from "../components/Button";
 
 const Checkout = () => {
   const { products } = useFastSpring();
-
-  // Initialize selectedProducts state with an empty array
   const [selectedProducts, setSelectedProducts] = useState([]);
+  const [crossSale, setCrossSale] = useState(null);
+  // const [loadCheckout, setLoadCheckout] = useState(true);
 
   useEffect(() => {
     // Filter the products and set the selectedProducts state
@@ -16,8 +15,6 @@ const Checkout = () => {
     setSelectedProducts(filteredProducts);
   }, [products]);
 
-  const [crossSale, setCrossSale] = useState(null);
-
   useEffect(() => {
     // Filter the products and set the crossSale state if the product exists
     const fxlabSub = products.find(
@@ -25,6 +22,40 @@ const Checkout = () => {
     );
     setCrossSale(fxlabSub);
   }, [products]);
+
+  useEffect(() => {
+    // Function to reload the embedded checkout
+    // const reloadCheckout = () => {
+    //   setLoadCheckout(false);
+    //   // Ensure the DOM has updated before remounting the checkout
+    //   setTimeout(() => setLoadCheckout(true), 200);
+    // };
+
+    // Define the dataPopupWebhookReceived function and bind it to the window object
+    const dataPopupWebhookReceived = (orderReference) => {
+      if (orderReference) {
+        console.log(orderReference.id);
+        // Assuming fastspring.builder.reset() is a valid method you need to call
+        window.fastspring.builder.reset();
+        // Trigger the checkout to reload
+        // reloadCheckout();
+        // Set a timer to reload the page 5 seconds after a successful operation
+        setTimeout(() => {
+          window.location.reload();
+        }, 5000); // Adjust time as needed
+      } else {
+        console.log("No order ID");
+      }
+    };
+
+    // Bind the function to the window object
+    window.dataPopupWebhookReceived = dataPopupWebhookReceived;
+
+    // Cleanup function to remove the reference when the component unmounts
+    return () => {
+      delete window.dataPopupWebhookReceived;
+    };
+  }, []); // The empty array ensures this effect runs once on mount and cleanup on unmount
 
   // Function to remove a product by its path
   const removeProduct = (path) => {
@@ -62,16 +93,16 @@ const Checkout = () => {
                         </div>
                       </div>
                       <div className="d-flex flex-row align-items-center">
-                        <a
-                          className="text-decoration-none me-3"
-                          href="#"
+                        <button
+                          className="btn btn-link text-decoration-none me-3"
                           onClick={(e) => {
                             e.preventDefault();
                             removeProduct(product.path);
                           }}
+                          aria-label="Remove product"
                         >
                           🗑️
-                        </a>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -85,7 +116,9 @@ const Checkout = () => {
           {isCrossSaleEligible &&
             crossSale && ( // Conditionally render crossSale if it exists and is eligible
               <div className="p-3 mt-5 text-end">
-                <h5>you might also be interested in...</h5>
+                <p className="fs-6 fw-bold">
+                  you might also be interested in...
+                </p>
                 <div>
                   <div className="card" key={crossSale.path}>
                     <div className="card-body">
@@ -100,10 +133,12 @@ const Checkout = () => {
                             />
                           </div>
                           <div className="ms-3">
-                            <h4>{crossSale.display}</h4>
-                            <h5 className="small mb-0">
+                            <p className="fs-5 fw-bold mb-1">
+                              {crossSale.display}
+                            </p>
+                            <p className="fs-6 small mb-0">
                               Price: {crossSale.price}
-                            </h5>
+                            </p>
                           </div>
                         </div>
                         <div className="d-flex flex-row align-items-center">
@@ -123,6 +158,7 @@ const Checkout = () => {
               </div>
             )}
         </div>
+        {/* {loadCheckout ? ( */}
         <div
           className="col-6"
           id="fsc-embedded-checkout-container"
@@ -131,6 +167,7 @@ const Checkout = () => {
             position: "relative",
           }}
         ></div>
+        {/* ) : null} */}
       </div>
     </section>
   );

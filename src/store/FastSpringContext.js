@@ -17,13 +17,45 @@ export const FastSpringProvider = ({ children }) => {
     const elements = document.querySelectorAll(
       "#fsc-embedded-checkout-skeleton"
     );
-
     elements.forEach((element) => {
       if (element.style.opacity !== "0") {
         element.style.opacity = "0";
         element.style.transition = "opacity 0.1s";
       }
     });
+  };
+
+  // Function to load the embedded SBL script for checkout
+  const loadCheckoutScript = () => {
+    const scriptId = "fsc-api-second";
+    let script = document.getElementById(scriptId);
+    if (!script) {
+      script = document.createElement("script");
+      script.type = "text/javascript";
+      script.id = scriptId;
+      script.setAttribute("data-continuous", "true");
+      script.src =
+        "https://sbl.onfastspring.com/sbl/0.9.5/fastspring-builder.min.js";
+      script.dataset.storefront =
+        "assignmentse.test.onfastspring.com/embedded-test";
+      document.body.appendChild(script);
+    }
+    return script;
+  };
+
+  // Function to remove the embedded SBL script
+  const removeCheckoutScript = () => {
+    const scriptId = "fsc-api-second";
+    const scriptToRemove = document.getElementById(scriptId);
+    if (scriptToRemove) {
+      scriptToRemove.remove();
+    }
+  };
+
+  // Function to reload the embedded SBL script
+  const reloadCheckoutScript = () => {
+    removeCheckoutScript();
+    loadCheckoutScript();
   };
 
   // Fills up products array when SBL loads
@@ -44,11 +76,13 @@ export const FastSpringProvider = ({ children }) => {
       }
     };
 
+    window.fastSpringCallBack = fastSpringCallBack;
+
     const addSBL = () => {
       const scriptId = "fsc-api";
-      const existingScript = document.getElementById(scriptId);
-      if (!existingScript) {
-        const script = document.createElement("script");
+      let script = document.getElementById(scriptId);
+      if (!script) {
+        script = document.createElement("script");
         script.type = "text/javascript";
         script.id = scriptId;
         script.setAttribute("data-continuous", "true");
@@ -56,26 +90,11 @@ export const FastSpringProvider = ({ children }) => {
           "https://sbl.onfastspring.com/sbl/0.9.5/fastspring-builder.min.js";
         script.dataset.storefront =
           "assignmentse.test.onfastspring.com/embedded-test";
-        window.fastSpringCallBack = fastSpringCallBack;
         script.setAttribute("data-data-callback", "fastSpringCallBack");
-
-        document.body.appendChild(script);
-      }
-    };
-
-    const addEmbeddedSBL = () => {
-      const scriptId = "fsc-api-second";
-      const existingScript = document.getElementById(scriptId);
-      if (!existingScript) {
-        const script = document.createElement("script");
-        script.type = "text/javascript";
-        script.id = scriptId;
-        script.setAttribute("data-continuous", "true");
-        script.src =
-          "https://sbl.onfastspring.com/sbl/0.9.5/fastspring-builder.min.js";
-        script.dataset.storefront =
-          "assignmentse.test.onfastspring.com/embedded-test";
-
+        script.setAttribute(
+          "data-popup-webhook-received",
+          "dataPopupWebhookReceived"
+        );
         document.body.appendChild(script);
       }
     };
@@ -85,22 +104,32 @@ export const FastSpringProvider = ({ children }) => {
 
     if (location.pathname === "/checkout") {
       // Load EmbeddedSBL only on the checkout page
-      addEmbeddedSBL();
-      // Set opacity to 0 for elements with the same ID after a 3-second delay
-      setTimeout(() => {
-        setOpacityToZero();
-      }, 1500);
+      const checkoutScript = loadCheckoutScript();
+      checkoutScript.onload = () => {
+        // Set opacity to 0 for elements with the same ID after a 3-second delay
+        setTimeout(() => {
+          setOpacityToZero();
+        }, 1500);
+      };
     } else {
       // Remove EmbeddedSBL on pages other than checkout
-      const scriptToRemove = document.getElementById("fsc-api-second");
-      if (scriptToRemove) {
-        scriptToRemove.remove();
-      }
+      removeCheckoutScript();
     }
+
+    // Cleanup function to remove the scripts when the component unmounts
+    return () => {
+      const scriptToCleanUp = document.getElementById("fsc-api");
+      if (scriptToCleanUp) {
+        scriptToCleanUp.remove();
+      }
+      removeCheckoutScript();
+    };
   }, [location]);
 
   return (
-    <FastSpringContext.Provider value={{ products, data }}>
+    <FastSpringContext.Provider
+      value={{ products, data, reloadCheckoutScript }}
+    >
       {children}
     </FastSpringContext.Provider>
   );
